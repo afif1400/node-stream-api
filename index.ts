@@ -1,8 +1,8 @@
 import * as express from "express";
 import * as fs from "fs";
-import * as cors from "cors";
+// import * as cors from "cors";
 const app = express();
-app.use(cors());
+// app.use(cors.apply(null, [{ origin: true }]));
 
 // const efsPath = "/mnt/efs";
 
