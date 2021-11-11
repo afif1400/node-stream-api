@@ -4,11 +4,7 @@ import * as cors from "cors";
 const app = express();
 app.use(cors());
 
-const efsPath = "/mnt/efs";
-
-app.get("/", (req, res) => {
-	res.sendFile(__dirname + "/index.html");
-});
+// const efsPath = "/mnt/efs";
 
 app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 	// console.log(req.headers);
