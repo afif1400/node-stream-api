@@ -50,13 +50,14 @@ app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 	res.writeHead(206, headers);
 	// Send file
 	const audioStream = fs.createReadStream(audioPath, { start, end });
-	audioStream.pipe(res);
-	// audioStream.on("data", (chunk) => {
-	// 	res.write(chunk);
-	// });
-	// audioStream.on("end", () => {
-	// 	res.end();
-	// });
+	// audioStream.pipe(res);
+	console.log(`Sending file ${audioPath}`, start, " ", end);
+	audioStream.on("data", (chunk) => {
+		res.write(chunk);
+	});
+	audioStream.on("end", () => {
+		res.end();
+	});
 });
 
 app.listen("5000", () => {
