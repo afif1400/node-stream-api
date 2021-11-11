@@ -11,12 +11,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
+	console.log(req.headers);
 	const fileName = req.params.fileName;
 	const range = req.headers.range;
-	if (!range) {
-		res.status(400).send("Range not specified");
-		return;
-	}
+	// if (!range) {
+	// 	res.status(400).send("Range not specified");
+	// 	return;
+	// }
 
 	// regex for mathing the file name in lofis folder with a prefix of a number and a .mp3 suffix
 	const path = `^(${fileName})-([a-z _ A-Z]+).mp3$`;
