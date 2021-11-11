@@ -20,7 +20,7 @@ app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 	}
 
 	// regex for mathing the file name in lofis folder with a prefix of a number and a .mp3 suffix
-	const path = `^(${fileName})-([a-z _ A-Z]+).mp3$`;
+	const path = `^(${fileName})-([a-z _ A-Z]+).aac$`;
 	const regex = new RegExp(path);
 	const files = fs.readdirSync(__dirname + "/lofis");
 	const file = files.find((f) => regex.test(f));
