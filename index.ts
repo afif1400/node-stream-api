@@ -1,9 +1,10 @@
 import * as express from "express";
 import * as fs from "fs";
-
+import * as cors from "cors";
 const app = express();
+app.use(cors());
 
-const efsPath = "/mnt/efs"
+const efsPath = "/mnt/efs";
 
 app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/index.html");
