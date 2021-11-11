@@ -3,9 +3,10 @@
 	"version": "1.0.0",
 	"main": "index.ts",
 	"license": "MIT",
-
 	"scripts": {
-		"start": "ts-node-dev index.ts"
+		"tsc": "tsc",
+		"start": "ts-node-dev index.ts",
+		"start:prod": "node build/index.js"
 	},
 	"dependencies": {
 		"cors": "^2.8.5",
