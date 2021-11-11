@@ -44,6 +44,7 @@ app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 		"Accept-Ranges": "bytes",
 		"Access-Control-Allow-Origin": "*",
 		"Access-Control-Allow-Methods": "*",
+		"Access-Control-Allow-Headers": "*",
 	};
 	res.writeHead(206, headers);
 	// Send file
