@@ -1,6 +1,6 @@
 import * as express from "express";
 import * as fs from "fs";
-import cors from "cors";
+import * as cors from "cors";
 const app = express();
 app.use(cors());
 
