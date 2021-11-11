@@ -29,8 +29,7 @@ app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 		return;
 	}
 
-	// const audioPath = efsPath + "/lofis/" + file;
-	const audioPath = "180-Pets.mp3";
+	const audioPath = efsPath + "/lofis/" + file;
 	const stat = fs.statSync(audioPath);
 	const audioSize = stat.size;
 
