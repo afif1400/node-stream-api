@@ -42,6 +42,8 @@ app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 		"Content-Range": `bytes ${start}-${end}/${audioSize}`,
 		"Content-Length": contentLength,
 		"Accept-Ranges": "bytes",
+		"Access-Control-Allow-Origin": "*",
+		"Access-Control-Allow-Methods": "*",
 	};
 	res.writeHead(206, headers);
 	// Send file
