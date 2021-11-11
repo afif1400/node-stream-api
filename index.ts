@@ -22,14 +22,14 @@ app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 	// regex for mathing the file name in lofis folder with a prefix of a number and a .mp3 suffix
 	const path = `^(${fileName})-([a-z _ A-Z]+).mp3$`;
 	const regex = new RegExp(path);
-	const files = fs.readdirSync(efsPath + "/lofis");
+	const files = fs.readdirSync(__dirname + "/lofis");
 	const file = files.find((f) => regex.test(f));
 	if (!file) {
 		res.status(404).send("File not found");
 		return;
 	}
 
-	const audioPath = efsPath + "/lofis/" + file;
+	const audioPath = __dirname + "/lofis/" + file;
 	const stat = fs.statSync(audioPath);
 	const audioSize = stat.size;
 
