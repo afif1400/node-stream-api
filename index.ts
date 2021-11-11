@@ -33,7 +33,7 @@ app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
 	const stat = fs.statSync(audioPath);
 	const audioSize = stat.size;
 
-	const CHUNK_SIZE = 1024 * 200;
+	const CHUNK_SIZE = 1024;
 	const start = parseInt(range.replace(/bytes=/, "").split("-")[0], 10);
 	const end = Math.min(start + CHUNK_SIZE, audioSize - 1);
 	//Send headers
