@@ -11,7 +11,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
-	console.log(req.headers);
+	// console.log(req.headers);
 	const fileName = req.params.fileName;
 	const range = req.headers.range;
 	if (!range) {
