@@ -1,0 +1,56 @@
+import * as express from "express";
+import * as fs from "fs";
+const app = express();
+
+app.get("/", (req, res) => {
+	res.sendFile(__dirname + "/index.html");
+});
+
+app.get("/stream/:fileName", (req: express.Request, res: express.Response) => {
+	const fileName = req.params.fileName;
+	const range = req.headers.range;
+	if (!range) {
+		res.status(400).send("Range not specified");
+		return;
+	}
+
+	// regex for mathing the file name in lofis folder with a prefix of a number and a .mp3 suffix
+	const path = `^(${fileName})-([a-z _ A-Z]+).mp3$`;
+	const regex = new RegExp(path);
+	const files = fs.readdirSync(__dirname + "/lofis");
+	const file = files.find((f) => regex.test(f));
+	if (!file) {
+		res.status(404).send("File not found");
+		return;
+	}
+
+	const audioPath = __dirname + "/lofis/" + file;
+	const stat = fs.statSync(audioPath);
+	const audioSize = stat.size;
+
+	const CHUNK_SIZE = 1024 * 1024;
+	const start = Number(range.replace(/\D/g, ""));
+	const end = Math.min(start + CHUNK_SIZE, audioSize - 1);
+	//Send headers
+	const contentLength = end - start + 1;
+	const headers = {
+		"Content-Type": "audio/mpeg",
+		"Content-Range": `bytes ${start}-${end}/${audioSize}`,
+		"Content-Length": contentLength,
+		"Accept-Ranges": "bytes",
+	};
+	res.writeHead(206, headers);
+	// Send file
+	const audioStream = fs.createReadStream(audioPath, { start, end });
+	// audioStream.pipe(res);
+	audioStream.on("data", (chunk) => {
+		res.write(chunk);
+	});
+	audioStream.on("end", () => {
+		res.end();
+	});
+});
+
+app.listen("5000", () => {
+	console.log("server is running on port 5000 🚀");
+});
