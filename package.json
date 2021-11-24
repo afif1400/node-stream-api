@@ -5,8 +5,8 @@
 	"license": "MIT",
 	"scripts": {
 		"tsc": "tsc",
-		"start": "ts-node-dev index.ts",
-		"start:prod": "node build/index.js"
+		"dev": "ts-node-dev index.ts",
+		"start": "node build/index.js"
 	},
 	"dependencies": {
 		"cors": "^2.8.5",
