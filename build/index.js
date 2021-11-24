@@ -22,6 +22,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+//@ts-ignore
 var express_1 = __importDefault(require("express"));
 var fs = __importStar(require("fs"));
 // import * as cors from "cors";
@@ -37,7 +38,7 @@ app.get("/stream/:fileName", function (req, res) {
         return;
     }
     // regex for mathing the file name in lofis folder with a prefix of a number and a .mp3 suffix
-    var path = "^(" + fileName + ")-([a-z _ A-Z]+).aac$";
+    var path = "^(".concat(fileName, ")-([a-z _ A-Z]+).aac$");
     var regex = new RegExp(path);
     var files = fs.readdirSync(__dirname + "/lofis");
     var file = files.find(function (f) { return regex.test(f); });
@@ -55,7 +56,7 @@ app.get("/stream/:fileName", function (req, res) {
     var contentLength = end - start + 1;
     var headers = {
         "Content-Type": "audio/mpeg",
-        "Content-Range": "bytes " + start + "-" + end + "/" + audioSize,
+        "Content-Range": "bytes ".concat(start, "-").concat(end, "/").concat(audioSize),
         "Content-Length": contentLength,
         "Accept-Ranges": "bytes",
         "Access-Control-Allow-Origin": "*",
@@ -74,6 +75,7 @@ app.get("/stream/:fileName", function (req, res) {
         res.end(err);
     });
 });
-app.listen("5000", function () {
+var PORT = process.env.PORT || 5000;
+app.listen(PORT, function () {
     console.log("server is running on port 5000 🚀");
 });

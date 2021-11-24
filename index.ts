@@ -1,3 +1,4 @@
+//@ts-ignore
 import express from "express";
 import * as fs from "fs";
 // import * as cors from "cors";
